@@ -16,7 +16,7 @@ namespace MvcApiClientOAuth.Controllers
 
         public async Task<IActionResult> Index()
         {
-            List<Empleado> empleados = await this.service.GetEmpleadoAsync();
+            List<Empleado> empleados = await this.service.GetEmpleadosAsync();
             return View(empleados);
         }
 
