@@ -4,20 +4,24 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace MvcApiClientOAuth.Filters
 {
-    public class AuthorizeEmpleadosAttribute : AuthorizeAttribute, IAsyncAuthorizationFilter
+    public class AuthorizeEmpleadosAttribute : AuthorizeAttribute,
+         IAuthorizationFilter
     {
-        public Task OnAuthorizationAsync(AuthorizationFilterContext context)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
             var user = context.HttpContext.User;
             if (user.Identity.IsAuthenticated == false)
             {
-                RouteValueDictionary routeLogin = new RouteValueDictionary(new
-                {
-                    controller = "Managed",
-                    action = "Login"
-                });
-                context.Result = new RedirectToRouteResult(routeLogin);
+                RouteValueDictionary routeLogin =
+                    new RouteValueDictionary(new
+                    {
+                        controller = "Managed",
+                        action = "Login"
+                    });
+                context.Result =
+                    new RedirectToRouteResult(routeLogin);
             }
         }
     }
+
 }

@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
+using MvcApiClientOAuth.Filters;
 using MvcApiClientOAuth.Models;
 using MvcApiClientOAuth.Services;
 
@@ -13,13 +15,14 @@ namespace MvcApiClientOAuth.Controllers
             this.service = service;
         }
 
-
+        [AuthorizeEmpleados]
         public async Task<IActionResult> Index()
         {
             List<Empleado> empleados = await this.service.GetEmpleadosAsync();
             return View(empleados);
         }
 
+        [AuthorizeEmpleados]
         public async Task<IActionResult> Details(int id)
         {
             //tendremos  el token en session
