@@ -1,7 +1,10 @@
 ﻿@if (Context.User.Identity.IsAuthenticated)
 {
     <li class="nav-item">
-        <a class="nav-link text-black" asp-controller="Empleados" asp-action="Index">Empleados</a>
+        <a class="nav-link text-black" asp-controller="Empleados" asp-action="Perfil">Mi Perfil</a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link text-black" asp-controller="Empleados" asp-action="Compis">Compañeros de Trabajo</a>
     </li>
     <li class="nav-link">
         <a class="nav-link text-danger" asp-controller="Managed" asp-action="Logout">
@@ -13,7 +16,7 @@
 else
 {
     <li class="nav-item">
-        <a class="nav-link text-black" asp-controller="Empleados" asp-action="Index">Log In</a>
+        <a class="nav-link text-black" asp-controller="Empleados" asp-action="Perfil">Log In</a>
     </li>
 
 }
