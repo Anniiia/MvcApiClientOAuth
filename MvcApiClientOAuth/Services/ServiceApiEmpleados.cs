@@ -171,14 +171,11 @@ namespace MvcApiClientOAuth.Services
             return result;
         }
 
-        public async Task<List<Empleado>>
-            GetEmpleadosOficiosAsync(List<string> oficios)
+        public async Task<List<Empleado>> GetEmpleadosOficiosAsync(List<string> oficios)
         {
             string request = "api/empleados/empleadosoficio";
             string data = this.TransformCollectionToQuery(oficios);
-            List<Empleado> empleados =
-                await this.CallApiAsync<List<Empleado>>
-                (request + "?" + data);
+            List<Empleado> empleados = await this.CallApiAsync<List<Empleado>>(request + "?" + data);
             return empleados;
         }
 
