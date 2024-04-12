@@ -147,5 +147,52 @@ namespace MvcApiClientOAuth.Services
             return compis;
         }
 
+        public async Task<List<string>> GetOficiosAsync()
+        {
+            string request = "api/empleados/oficios";
+
+            List<string> oficios = await this.CallApiAsync<List<string>>(request);
+            return oficios;
+        }
+
+        //esto podria ir en un helper
+
+        private string TransformCollectionToQuery(List<string> collection)
+        { 
+            string result = "";
+
+            foreach (string elem in collection)
+            {
+                result += "oficio=" + elem + "&";
+            }
+
+            result = result.TrimEnd('&');
+
+            return result;
+        }
+
+        public async Task<List<Empleado>> GetEmpleadosOficiosAsync(List<string> oficios)
+        {
+            string request = "api/Empleados/empleadosoficios";
+            string data = this.TransformCollectionToQuery(oficios);
+            List<Empleado> empleados = await this.CallApiAsync<List<Empleado>>(request + "?" + data);
+
+            return empleados;
+        }
+
+        public async Task UpdateEmpleadosOficios(int incremento,List<string> oficio)
+        {
+            string request = "api/Empleados/incrementarsalariooficios/"+incremento;
+            string data = this.TransformCollectionToQuery(oficio);
+            List<Empleado> empleados = await this.CallApiAsync<List<Empleado>>(request + "?" + data);
+
+            using (HttpClient client = new HttpClient())
+            {
+                client.BaseAddress = new Uri(this.UrlApiEmpleados);
+                client.DefaultRequestHeaders.Clear();
+                client.DefaultRequestHeaders.Accept.Add(this.Header);
+                HttpResponseMessage response = await client.PutAsync(request + "?" + data, null);
+            }
+        }
     }
 }
