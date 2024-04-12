@@ -70,21 +70,24 @@ namespace MvcApiClientOAuth.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Empleadosoficios(int? incremento, List<string> oficio, string accion)
+        public async Task<IActionResult>
+            EmpleadosOficios(int? incremento
+            , List<string> oficio, string accion)
         {
-            List<string> oficios = await this.service.GetOficiosAsync();
+            List<string> oficios =
+                await this.service.GetOficiosAsync();
             ViewData["OFICIOS"] = oficios;
-           
-
             if (accion.ToLower() == "update")
             {
-                await this.service.UpdateEmpleadosOficios(incremento.Value, oficio);
-               
+                await this.service
+                    .UpdateEmpleadosOficiosAsync
+                    (incremento.Value, oficio);
             }
-            List<Empleado> empleados = await this.service.GetEmpleadosOficiosAsync(oficio);
-
+            List<Empleado> empleados =
+                await this.service.GetEmpleadosOficiosAsync
+                (oficio);
             return View(empleados);
-
         }
+
     }
 }
